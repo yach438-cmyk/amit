@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-
 <html lang="he">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>עמיתהפיתה 🎉</title>
+<title>עמיתהפיתה מזל טוב 🎉</title>
 
 <!-- מצב אפליקציה לאייפון -->
-
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="עמיתהפיתה 🎂">
@@ -38,29 +36,57 @@ body {
   z-index: 2;
 }
 
+#playBtn {
+  display: none;
+  margin-top: 25px;
+  font-size: 1.3em;
+  padding: 14px 24px;
+  border-radius: 14px;
+  border: none;
+  background: gold;
+  color: black;
+}
+
+#yt {
+  display: none;
+  margin-top: 20px;
+}
+
 canvas {
   position: absolute;
   top: 0;
   left: 0;
 }
 </style>
-
 </head>
 
 <body>
 
 <div id="countdown"></div>
-<div id="birthday">🎉 עמיתהפיתה מזל טוב 🎉</div>
+
+<div id="birthday">
+  🎉 עמיתהפיתה מזל טוב 🎉<br>
+  <button id="playBtn">▶️ ניגון שיר</button>
+  <div id="yt">
+    <a href="https://www.youtube.com/watch?v=HVHVAO"
+       target="_blank"
+       style="color:gold; font-size:1.2em; display:block; margin-top:20px;">
+      🎵 לחצי כאן לשיר
+    </a>
+  </div>
+</div>
+
 <canvas id="fireworks"></canvas>
 
 <script>
-// יעד: 18 לחודש בשעה 00:00
-const targetDate = new Date();
-targetDate.setDate(18);
-targetDate.setHours(0,0,0,0);
+// יעד: 18 בדצמבר בשעה 00:00
+// חודש מתחיל מ-0 → 11 = דצמבר
+const targetDate = new Date(new Date().getFullYear(), 11, 18, 0, 0, 0, 0);
 
 const countdownEl = document.getElementById("countdown");
 const birthdayEl = document.getElementById("birthday");
+const playBtn = document.getElementById("playBtn");
+const yt = document.getElementById("yt");
 
 const timer = setInterval(() => {
   const now = new Date();
@@ -70,6 +96,7 @@ const timer = setInterval(() => {
     clearInterval(timer);
     countdownEl.style.display = "none";
     birthdayEl.style.display = "block";
+    playBtn.style.display = "inline-block";
     startFireworks();
     return;
   }
@@ -82,6 +109,12 @@ const timer = setInterval(() => {
   countdownEl.innerHTML =
     `עוד ${days} ימים<br>${hours}:${minutes}:${seconds}`;
 }, 1000);
+
+// כפתור ניגון
+playBtn.onclick = () => {
+  yt.style.display = "block";
+  playBtn.style.display = "none";
+};
 
 // 🎆 זיקוקים
 function startFireworks() {
